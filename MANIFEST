@@ -10,7 +10,7 @@ pod.t
 t/builder.t
 t/ic.t
 t/pod.t
-t/ts11.out
-t/ts11.pl
+t/c13.out
+t/c13.pl
 test.ic
 test.out

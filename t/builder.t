@@ -2,14 +2,14 @@
 
 use strict;
 use warnings;
-use Test::More tests => 155;
+use Test::More tests => 106;
 
 use Chemistry::File::Dumper;
 use Chemistry::InternalCoords::Builder ':all';
 
 my $TOL = 0.002;
 
-my $mol = Chemistry::Mol->read('t/ts11.pl');
+my $mol = Chemistry::Mol->read('t/c13.pl');
 build_zmat($mol);
 
 my @result;
@@ -21,7 +21,7 @@ push @result, [
 ] for $mol->atoms;
 
 
-my $fname = 't/ts11.out';
+my $fname = 't/c13.out';
 open F, "<$fname" or die "couldn't open $fname: $!\n";
 my @expected = map { [ split(" ") ] } <F>;
 

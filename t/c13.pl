@@ -1,14 +1,14 @@
 $mol = bless( {
   'atoms' => [
     bless( {
-      'Z' => 1,
+      'Z' => 6,
       'bonds' => [],
       'coords' => bless( [
         [
           [
-            '-0.601715',
-            '-1.961067',
-            '-1.564867'
+            '0.0000',
+            '0.0000',
+            '0.0000'
           ]
         ],
         1,
@@ -16,7 +16,7 @@ $mol = bless( {
       ], 'Math::VectorReal' ),
       'id' => 'a1',
       'parent' => {},
-      'symbol' => 'H'
+      'symbol' => 'C'
     }, 'Chemistry::Atom' ),
     bless( {
       'Z' => 6,
@@ -24,9 +24,9 @@ $mol = bless( {
       'coords' => bless( [
         [
           [
-            '-0.604649',
-            '-1.964045',
-            '-0.470569'
+            '1.5523',
+            '0.0000',
+            '0.0000'
           ]
         ],
         1,
@@ -42,9 +42,9 @@ $mol = bless( {
       'coords' => bless( [
         [
           [
-            '0.755468',
-            '-1.980192',
-            '0.174084'
+            '2.1442',
+            '1.4476',
+            '0.0000'
           ]
         ],
         1,
@@ -60,9 +60,9 @@ $mol = bless( {
       'coords' => bless( [
         [
           [
-            '0.707026',
-            '-1.237074',
-            '1.323199'
+            '3.6474',
+            '1.5670',
+            '0.2625'
           ]
         ],
         1,
@@ -73,14 +73,14 @@ $mol = bless( {
       'symbol' => 'C'
     }, 'Chemistry::Atom' ),
     bless( {
-      'Z' => 6,
+      'Z' => 8,
       'bonds' => [],
       'coords' => bless( [
         [
           [
-            '-0.517893',
-            '-0.514977',
-            '1.383811'
+            '1.9832',
+            '-0.7529',
+            '-1.1015'
           ]
         ],
         1,
@@ -88,25 +88,7 @@ $mol = bless( {
       ], 'Math::VectorReal' ),
       'id' => 'a5',
       'parent' => {},
-      'symbol' => 'C'
-    }, 'Chemistry::Atom' ),
-    bless( {
-      'Z' => 6,
-      'bonds' => [],
-      'coords' => bless( [
-        [
-          [
-            '-1.227891',
-            '-0.730056',
-            '0.175459'
-          ]
-        ],
-        1,
-        3
-      ], 'Math::VectorReal' ),
-      'id' => 'a6',
-      'parent' => {},
-      'symbol' => 'C'
+      'symbol' => 'O'
     }, 'Chemistry::Atom' ),
     bless( {
       'Z' => 1,
@@ -114,9 +96,27 @@ $mol = bless( {
       'coords' => bless( [
         [
           [
-            '-1.173747',
-            '-2.854214',
-            '-0.151236'
+            '2.8436',
+            '-1.1202',
+            '-0.9584'
+          ]
+        ],
+        1,
+        3
+      ], 'Math::VectorReal' ),
+      'id' => 'a6',
+      'parent' => {},
+      'symbol' => 'H'
+    }, 'Chemistry::Atom' ),
+    bless( {
+      'Z' => 1,
+      'bonds' => [],
+      'coords' => bless( [
+        [
+          [
+            '3.9331',
+            '2.6364',
+            '0.3434'
           ]
         ],
         1,
@@ -127,14 +127,14 @@ $mol = bless( {
       'symbol' => 'H'
     }, 'Chemistry::Atom' ),
     bless( {
-      'Z' => 6,
+      'Z' => 1,
       'bonds' => [],
       'coords' => bless( [
         [
           [
-            '0.719778',
-            '0.520877',
-            '-1.287993'
+            '4.2534',
+            '1.1274',
+            '-0.5551'
           ]
         ],
         1,
@@ -142,7 +142,7 @@ $mol = bless( {
       ], 'Math::VectorReal' ),
       'id' => 'a8',
       'parent' => {},
-      'symbol' => 'C'
+      'symbol' => 'H'
     }, 'Chemistry::Atom' ),
     bless( {
       'Z' => 1,
@@ -150,9 +150,9 @@ $mol = bless( {
       'coords' => bless( [
         [
           [
-            '1.571944',
-            '-2.619789',
-            '-0.142109'
+            '3.9446',
+            '1.0724',
+            '1.2097'
           ]
         ],
         1,
@@ -168,9 +168,9 @@ $mol = bless( {
       'coords' => bless( [
         [
           [
-            '1.506536',
-            '-1.154993',
-            '2.053292'
+            '-0.3965',
+            '-1.0350',
+            '0.0353'
           ]
         ],
         1,
@@ -186,9 +186,9 @@ $mol = bless( {
       'coords' => bless( [
         [
           [
-            '-0.842957',
-            '0.102313',
-            '2.211861'
+            '-0.4228',
+            '0.4955',
+            '-0.8961'
           ]
         ],
         1,
@@ -199,14 +199,14 @@ $mol = bless( {
       'symbol' => 'H'
     }, 'Chemistry::Atom' ),
     bless( {
-      'Z' => 6,
+      'Z' => 1,
       'bonds' => [],
       'coords' => bless( [
         [
           [
-            '-0.674082',
-            '0.674385',
-            '-1.078093'
+            '-0.3817',
+            '0.5302',
+            '0.8963'
           ]
         ],
         1,
@@ -214,7 +214,7 @@ $mol = bless( {
       ], 'Math::VectorReal' ),
       'id' => 'a12',
       'parent' => {},
-      'symbol' => 'C'
+      'symbol' => 'H'
     }, 'Chemistry::Atom' ),
     bless( {
       'Z' => 1,
@@ -222,9 +222,9 @@ $mol = bless( {
       'coords' => bless( [
         [
           [
-            '-2.305453',
-            '-0.584770',
-            '0.128984'
+            '1.6146',
+            '2.0324',
+            '0.7876'
           ]
         ],
         1,
@@ -240,9 +240,9 @@ $mol = bless( {
       'coords' => bless( [
         [
           [
-            '-1.383291',
-            '0.476803',
-            '-1.879586'
+            '1.9104',
+            '1.9486',
+            '-0.9668'
           ]
         ],
         1,
@@ -258,141 +258,15 @@ $mol = bless( {
       'coords' => bless( [
         [
           [
-            '1.185090',
-            '-0.092305',
-            '-2.049487'
+            '1.8749',
+            '-0.4962',
+            '0.9610'
           ]
         ],
         1,
         3
       ], 'Math::VectorReal' ),
       'id' => 'a15',
-      'parent' => {},
-      'symbol' => 'H'
-    }, 'Chemistry::Atom' ),
-    bless( {
-      'Z' => 6,
-      'bonds' => [],
-      'coords' => bless( [
-        [
-          [
-            '1.411566',
-            '1.299081',
-            '-0.317758'
-          ]
-        ],
-        1,
-        3
-      ], 'Math::VectorReal' ),
-      'id' => 'a16',
-      'parent' => {},
-      'symbol' => 'C'
-    }, 'Chemistry::Atom' ),
-    bless( {
-      'Z' => 6,
-      'bonds' => [],
-      'coords' => bless( [
-        [
-          [
-            '0.517091',
-            '2.017448',
-            '0.429837'
-          ]
-        ],
-        1,
-        3
-      ], 'Math::VectorReal' ),
-      'id' => 'a17',
-      'parent' => {},
-      'symbol' => 'C'
-    }, 'Chemistry::Atom' ),
-    bless( {
-      'Z' => 1,
-      'bonds' => [],
-      'coords' => bless( [
-        [
-          [
-            '2.485339',
-            '1.271828',
-            '-0.158829'
-          ]
-        ],
-        1,
-        3
-      ], 'Math::VectorReal' ),
-      'id' => 'a18',
-      'parent' => {},
-      'symbol' => 'H'
-    }, 'Chemistry::Atom' ),
-    bless( {
-      'Z' => 1,
-      'bonds' => [],
-      'coords' => bless( [
-        [
-          [
-            '0.757148',
-            '2.687974',
-            '1.247433'
-          ]
-        ],
-        1,
-        3
-      ], 'Math::VectorReal' ),
-      'id' => 'a19',
-      'parent' => {},
-      'symbol' => 'H'
-    }, 'Chemistry::Atom' ),
-    bless( {
-      'Z' => 6,
-      'bonds' => [],
-      'coords' => bless( [
-        [
-          [
-            '-0.839714',
-            '1.921773',
-            '-0.214898'
-          ]
-        ],
-        1,
-        3
-      ], 'Math::VectorReal' ),
-      'id' => 'a20',
-      'parent' => {},
-      'symbol' => 'C'
-    }, 'Chemistry::Atom' ),
-    bless( {
-      'Z' => 1,
-      'bonds' => [],
-      'coords' => bless( [
-        [
-          [
-            '-1.684854',
-            '1.894142',
-            '0.479711'
-          ]
-        ],
-        1,
-        3
-      ], 'Math::VectorReal' ),
-      'id' => 'a21',
-      'parent' => {},
-      'symbol' => 'H'
-    }, 'Chemistry::Atom' ),
-    bless( {
-      'Z' => 1,
-      'bonds' => [],
-      'coords' => bless( [
-        [
-          [
-            '-0.994238',
-            '2.790758',
-            '-0.877644'
-          ]
-        ],
-        1,
-        3
-      ], 'Math::VectorReal' ),
-      'id' => 'a22',
       'parent' => {},
       'symbol' => 'H'
     }, 'Chemistry::Atom' )
@@ -406,14 +280,7 @@ $mol = bless( {
     'a13' => {},
     'a14' => {},
     'a15' => {},
-    'a16' => {},
-    'a17' => {},
-    'a18' => {},
-    'a19' => {},
     'a2' => {},
-    'a20' => {},
-    'a21' => {},
-    'a22' => {},
     'a3' => {},
     'a4' => {},
     'a5' => {},
@@ -423,7 +290,7 @@ $mol = bless( {
     'a9' => {}
   },
   'id' => 'mol1',
-  'name' => ''
+  'name' => '2-butanol'
 }, 'Chemistry::Mol' );
 $mol->{'atoms'}[0]{'parent'} = $mol;
 $mol->{'atoms'}[1]{'parent'} = $mol;
@@ -440,13 +307,6 @@ $mol->{'atoms'}[11]{'parent'} = $mol;
 $mol->{'atoms'}[12]{'parent'} = $mol;
 $mol->{'atoms'}[13]{'parent'} = $mol;
 $mol->{'atoms'}[14]{'parent'} = $mol;
-$mol->{'atoms'}[15]{'parent'} = $mol;
-$mol->{'atoms'}[16]{'parent'} = $mol;
-$mol->{'atoms'}[17]{'parent'} = $mol;
-$mol->{'atoms'}[18]{'parent'} = $mol;
-$mol->{'atoms'}[19]{'parent'} = $mol;
-$mol->{'atoms'}[20]{'parent'} = $mol;
-$mol->{'atoms'}[21]{'parent'} = $mol;
 $mol->{'byId'}{'a1'} = $mol->{'atoms'}[0];
 $mol->{'byId'}{'a10'} = $mol->{'atoms'}[9];
 $mol->{'byId'}{'a11'} = $mol->{'atoms'}[10];
@@ -454,14 +314,7 @@ $mol->{'byId'}{'a12'} = $mol->{'atoms'}[11];
 $mol->{'byId'}{'a13'} = $mol->{'atoms'}[12];
 $mol->{'byId'}{'a14'} = $mol->{'atoms'}[13];
 $mol->{'byId'}{'a15'} = $mol->{'atoms'}[14];
-$mol->{'byId'}{'a16'} = $mol->{'atoms'}[15];
-$mol->{'byId'}{'a17'} = $mol->{'atoms'}[16];
-$mol->{'byId'}{'a18'} = $mol->{'atoms'}[17];
-$mol->{'byId'}{'a19'} = $mol->{'atoms'}[18];
 $mol->{'byId'}{'a2'} = $mol->{'atoms'}[1];
-$mol->{'byId'}{'a20'} = $mol->{'atoms'}[19];
-$mol->{'byId'}{'a21'} = $mol->{'atoms'}[20];
-$mol->{'byId'}{'a22'} = $mol->{'atoms'}[21];
 $mol->{'byId'}{'a3'} = $mol->{'atoms'}[2];
 $mol->{'byId'}{'a4'} = $mol->{'atoms'}[3];
 $mol->{'byId'}{'a5'} = $mol->{'atoms'}[4];
