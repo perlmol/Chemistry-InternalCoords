@@ -1,12 +1,12 @@
 package Chemistry::InternalCoords;
 
-$VERSION = '0.10';
+$VERSION = '0.11';
 # $Id$
 
 use 5.006;
 use strict;
 use warnings;
-use Math::VectorReal;
+use Math::VectorReal qw(:all);
 use Carp;
 use overload '""' => "stringify", fallback => 1;
 use Scalar::Util 'weaken';
@@ -129,8 +129,13 @@ sub cartesians {
     unless ($self->{dih_ref}) { # third atom; place on XY plane
         my $len = $self->{len_val};
         my $ang = deg2rad(180 - $self->{ang_val});
-        return vector($len * cos($ang), $len * sin($ang), 0) 
-            + $self->{len_ref}->coords;
+        my $d1 = $self->{len_ref}->coords - $self->{ang_ref}->coords;
+        $d1 = $d1->norm;
+        my $v = $len * $d1 * cos($ang) + $len * Y * sin($ang);
+        #vector($len * cos($ang), $len * sin($ang), 0) ;
+        #print "len=$len; ang=$ang; v=$v; d1=$d1\n";
+        return( $v + $self->{len_ref}->coords);
+        
     }
 
     # the real thing...
@@ -204,7 +209,7 @@ sub stringify {
 
 =head1 VERSION
 
-0.10
+0.11
 
 =head1 SEE ALSO
 

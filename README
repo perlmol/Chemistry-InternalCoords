@@ -1,7 +1,12 @@
-Chemistry/InternalCoords version 0.10
+Chemistry/InternalCoords version 0.11
 =====================================
 
 This module converts from internal to cartesian coordinates.
+
+CHANGES SINCE VERSION 0.10
+    - Fixed a bug where the cartesian coordinate of the third atom was not
+      calculated properly when it refered to the first atom instead of the
+      second.
 
 INSTALLATION
 
