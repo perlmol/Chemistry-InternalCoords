@@ -1,11 +1,10 @@
-Chemistry/InternalCoords version 0.17
+Chemistry/InternalCoords version 0.18
 =====================================
 
 This modules convert from internal to Cartesian coordinates and viceversa.
 
-CHANGES SINCE VERSION 0.16
-    - Handle linear angles.
-    - Minor POD corrections.
+CHANGES SINCE VERSION 0.17
+    - Added the bfs and sort options to build_zmat.
 
 INSTALLATION
 
@@ -26,7 +25,7 @@ This module requires these other modules and libraries:
 
 COPYRIGHT AND LICENSE
 
-Copyright (C) 2004 Ivan Tubert
+Copyright (C) 2004 Ivan Tubert-Brohman
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 

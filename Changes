@@ -1,5 +1,8 @@
 Revision history for Perl extension Chemistry::InternalCoords
 
+0.18  Sep 24 2004
+    - Added the bfs and sort options to build_zmat.
+
 0.17  Aug 2 2004
     - Handle linear angles.
     - Minor POD corrections.

@@ -8,6 +8,7 @@ bug.ic
 bug.out
 pod.t
 t/builder.out
+t/builder_nobfs.out
 t/builder.pl
 t/builder.t
 t/ic.t

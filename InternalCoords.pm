@@ -1,6 +1,6 @@
 package Chemistry::InternalCoords;
 
-$VERSION = '0.17';
+$VERSION = '0.18';
 # $Id$
 
 use 5.006;
@@ -266,7 +266,7 @@ sub stringify {
 
 =head1 VERSION
 
-0.17
+0.18
 
 =head1 SEE ALSO
 
@@ -276,12 +276,12 @@ L<Math::VectorReal>, L<http://www.perlmol.org/>.
 
 =head1 AUTHOR
 
-Ivan Tubert <itub@cpan.org>
+Ivan Tubert-Brohman <itub@cpan.org>
 
 =head1 COPYRIGHT
 
-Copyright (c) 2004 Ivan Tubert. All rights reserved. This program is free
-software; you can redistribute it and/or modify it under the same terms as
+Copyright (c) 2004 Ivan Tubert-Brohman. All rights reserved. This program is
+free software; you can redistribute it and/or modify it under the same terms as
 Perl itself.
 
 =cut

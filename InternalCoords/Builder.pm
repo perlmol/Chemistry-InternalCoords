@@ -1,6 +1,6 @@
 package Chemistry::InternalCoords::Builder;
 
-$VERSION = '0.17';
+$VERSION = '0.18';
 
 use strict;
 use warnings;
@@ -28,17 +28,20 @@ coordinates
     # $mol is a Chemistry::Mol object
     build_zmat($mol);
 
+    # don't change the atom order!
+    build_zmat($mol, bfs => 0);
+
 =head1 DESCRIPTION
 
 This module builds a Z-matrix from the cartesian coordinates of a molecule,
 making sure that atoms are defined in a way that allows for efficient structure
 optimizations and Monte Carlo sampling.
 
-The algorithm tries to start at the center of the molecule and builds outward
-in a breadth-first fashion. Improper dihedrals are used to ensure clean
-rotation of groups without distortion. All distance and angle references use
-real bonds and bond angles where possible (the exception being disconnected 
-structures).
+By default, the algorithm tries to start at the center of the molecule and
+builds outward in a breadth-first fashion. Improper dihedrals are used to
+ensure clean rotation of groups without distortion. All distance and angle
+references use real bonds and bond angles where possible (the exception being
+disconnected structures).
 
 This module is part of the PerlMol project, L<http://www.perlmol.org/>.
 
@@ -49,35 +52,74 @@ To export all functions, use the ":all" tag.
 
 =over
 
-=item build_zmat($mol)
+=item build_zmat($mol, %options)
 
 Build a Z-matrix from the cartesian coordinates of the molecule. Side effect
-warning: This function modifies the molecule heavily! First, it finds the bonds
-if there are no bonds defined already (for example, if the structure came from
-and XYZ file with no bond information). Second, it canonicalizes the molecule,
-as a means of finding the "topological center". Third, it builds the Z-matrix
-using a breadth-first search. Fourth, it sorts the atoms in the molecule in the
-order that they were defined in the Z-matrix.
+warning: by default, this function modifies the molecule heavily! First, it
+finds the bonds if there are no bonds defined already (for example, if the
+structure came from and XYZ file with no bond information). Second, it
+canonicalizes the molecule, as a means of finding the "topological center".
+Third, it builds the Z-matrix using a breadth-first search. Fourth, it sorts
+the atoms in the molecule in the order that they were defined in the Z-matrix.
+
+Options:
+
+=over
+
+=item bfs
+
+Default: true. Follow the procedure described above. If bfs is false, then
+the atom order is not modified (that is, the atoms are added sequentially in
+the order in which they appear in the connection table, instead of using the
+breadth-first search).
+
+=item sort
+
+Default: true. Do the canonicalization step as described above. This option
+only applies when bfs => 1, otherwise it has no effect. If false and bfs => 1,
+the breadth-first search is done, but starting at the first atom in the 
+connection table.
+
+=back
 
 =cut
 
 sub build_zmat {
     my ($mol, %opts) = @_;
+    %opts = (sort => 1, bfs => 1, %opts);
 
     find_bonds($mol) unless $mol->bonds;
-    canonicalize($mol);
 
-    my @atoms = sort { $b->attr("canon/class") <=> $a->attr("canon/class") }
-        $mol->atoms;
-
-    my $ats = [];
-    for my $atom (@atoms) {
-        next if $atom->attr("zmat/index");
-        zmat_bfs($mol, $atom, $ats);
+    if ($opts{bfs}) {
+        my @atoms = $mol->atoms;
+        if ($opts{sort}) {
+            canonicalize($mol);
+            @atoms = sort { 
+                $b->attr("canon/class") <=> $a->attr("canon/class") 
+            } @atoms;
+        }
+        my $ats = [];
+        for my $atom (@atoms) {
+            next if $atom->attr("zmat/index");
+            zmat_bfs($mol, $atom, $ats);
+        }
+        $mol->sort_atoms( sub {
+            $_[0]->attr("zmat/index") <=> $_[1]->attr("zmat/index")
+        });
+    } else {
+        zmat_seq($mol);
     }
-    $mol->sort_atoms( sub {
-        $_[0]->attr("zmat/index") <=> $_[1]->attr("zmat/index")
-    });
+}
+
+sub zmat_seq {
+    my ($mol) = @_;
+    my $i = 0;
+    my @atoms;
+    for my $atom ($mol->atoms) {
+        $atom->attr("zmat/index", ++$i);
+        add_ic($atom, \@atoms);
+        push @atoms, $atom;
+    }
 }
 
 sub zmat_bfs {
@@ -174,7 +216,7 @@ sub sorted_neighbors {
 
 =head1 VERSION
 
-0.17
+0.18
 
 =head1 CAVEATS
 
@@ -197,12 +239,12 @@ L<http://www.perlmol.org/>.
 
 =head1 AUTHOR
 
-Ivan Tubert E<lt>itub@cpan.orgE<gt>
+Ivan Tubert-Brohman E<lt>itub@cpan.orgE<gt>
 
 =head1 COPYRIGHT
 
-Copyright (c) 2004 Ivan Tubert. All rights reserved. This program is free
-software; you can redistribute it and/or modify it under the same terms as
+Copyright (c) 2004 Ivan Tubert-Brohman. All rights reserved. This program is
+free software; you can redistribute it and/or modify it under the same terms as
 Perl itself.
 
 =cut
