@@ -1,6 +1,6 @@
 package Chemistry::InternalCoords;
 
-$VERSION = '0.11';
+$VERSION = '0.15';
 # $Id$
 
 use 5.006;
@@ -15,7 +15,11 @@ use Math::Trig 'deg2rad';
 
 =head1 NAME
 
-Chemistry::InternalCoords - Represent the position of an atom using internal coordinates and convert it to Cartesian coordinates
+Chemistry::InternalCoords - Represent the position of an atom using internal coordinates and convert it to Cartesian coordinates. For generating an internal
+coordinate representation (aka a Z-matrix) of a molecule from its Cartesian
+coordinates, see the L<Chemistry::InternalCoords::Builder> module.
+
+This module is part of the PerlMol project, L<http://www.perlmol.org/>.
 
 =head1 SYNOPSIS
     
@@ -51,8 +55,8 @@ Chemistry::InternalCoords - Represent the position of an atom using internal coo
 
 =head1 DESCRIPTION
 
-This module converts from internal to Cartesian coordinates. Future versions
-may also do the opposite.
+This module implementes an object for representing internal coordinates 
+and provides methods for converting them to Cartesian coordinates.
 
 =head1 METHODS
 
@@ -105,6 +109,42 @@ sub new {
     }
 
     $self;
+}
+
+=item my ($atom, $distance) = $ic->distance
+
+Return the atom reference and distance value contained in the
+Chemistry::InternalCoords object.
+
+=cut
+
+sub distance {
+    my ($self) = @_;
+    ($self->{len_ref}, $self->{len_val});
+}
+
+=item my ($atom, $angle) = $ic->angle
+
+Return the atom reference and angle value contained in the
+Chemistry::InternalCoords object.
+
+=cut
+
+sub angle {
+    my ($self) = @_;
+    ($self->{ang_ref}, $self->{ang_val});
+}
+
+=item my ($atom, $dihedral) = $ic->dihedral
+
+Return the atom reference and dihedral value contained in the
+Chemistry::InternalCoords object.
+
+=cut
+
+sub dihedral {
+    my ($self) = @_;
+    ($self->{dih_ref}, $self->{dih_val});
 }
 
 =item my $vector = $ic->cartesians
@@ -187,6 +227,7 @@ sub add_cartesians {
     my ($self) = @_;
     my $v = $self->cartesians;
     $self->{atom}->coords($v);
+    $v;
 }
 
 =item my $string = $ic->stringify
@@ -198,7 +239,8 @@ This method overloads the "" operator.
 
 sub stringify {
     my ($self) = shift;
-    my $ret = '';
+    no warnings 'uninitialized';
+    my $ret;
     for my $key (qw(len_ref len_val ang_ref ang_val dih_ref dih_val)) {
         $ret .= "$key=($self->{$key}), ";
     }
@@ -209,10 +251,11 @@ sub stringify {
 
 =head1 VERSION
 
-0.11
+0.15
 
 =head1 SEE ALSO
 
+L<Chemistry::InternalCoords::Builder>,
 L<Chemistry::Mol>, L<Chemistry::Atom>, 
 L<Math::VectorReal>, L<http://www.perlmol.org/>.
 

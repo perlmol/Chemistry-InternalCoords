@@ -1,12 +1,11 @@
-Chemistry/InternalCoords version 0.11
+Chemistry/InternalCoords version 0.15
 =====================================
 
-This module converts from internal to cartesian coordinates.
+This modules convert from internal to Cartesian coordinates and viceversa.
 
-CHANGES SINCE VERSION 0.10
-    - Fixed a bug where the cartesian coordinate of the third atom was not
-      calculated properly when it refered to the first atom instead of the
-      second.
+CHANGES SINCE VERSION 0.11
+    - New methods: distance, angle, dihedral
+    - New module: Chemistry::InternalCoords::Builder
 
 INSTALLATION
 
@@ -20,8 +19,10 @@ To install this module type the following:
 DEPENDENCIES
 
 This module requires these other modules and libraries:
-        "Chemistry::Mol" => "0.20",
+        "Chemistry::Mol" => "0.25",
         "Scalar::Util" => 0,
+        "Chemistry::Canonicalize" => 0.10,
+        "Chemistry::Bond::Find" => 0.20,
 
 COPYRIGHT AND LICENSE
 

@@ -1,5 +1,9 @@
 Revision history for Perl extension Chemistry::InternalCoords
 
+0.15  Jul 2 2004
+    - New methods: distance, angle, dihedral
+    - New module: Chemistry::InternalCoords::Builder
+
 0.11  Jun 2 2004
     - Fixed a bug where the cartesian coordinate of the third atom was not
       calculated properly when it refered to the first atom instead of the
