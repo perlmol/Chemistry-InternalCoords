@@ -1,6 +1,6 @@
 package Chemistry::InternalCoords;
 
-$VERSION = '0.16';
+$VERSION = '0.17';
 # $Id$
 
 use 5.006;
@@ -15,11 +15,8 @@ use Math::Trig 'deg2rad';
 
 =head1 NAME
 
-Chemistry::InternalCoords - Represent the position of an atom using internal coordinates and convert it to Cartesian coordinates. For generating an internal
-coordinate representation (aka a Z-matrix) of a molecule from its Cartesian
-coordinates, see the L<Chemistry::InternalCoords::Builder> module.
-
-This module is part of the PerlMol project, L<http://www.perlmol.org/>.
+Chemistry::InternalCoords - Represent the position of an atom using internal
+coordinates and convert it to Cartesian coordinates. 
 
 =head1 SYNOPSIS
     
@@ -55,8 +52,14 @@ This module is part of the PerlMol project, L<http://www.perlmol.org/>.
 
 =head1 DESCRIPTION
 
-This module implementes an object for representing internal coordinates 
+This module implements an object class for representing internal coordinates 
 and provides methods for converting them to Cartesian coordinates.
+
+For generating an internal coordinate representation (aka a Z-matrix) of a
+molecule from its Cartesian coordinates, see the
+L<Chemistry::InternalCoords::Builder> module.
+
+This module is part of the PerlMol project, L<http://www.perlmol.org/>.
 
 =head1 METHODS
 
@@ -158,6 +161,7 @@ atoms referenced by the $ic object should already be calculated.
 sub cartesians {
     my ($self) = @_;
 
+    #print "cartesians\n";
     unless ($self->{len_ref}) { # origin
         return vector(0, 0, 0); 
     }
@@ -166,7 +170,8 @@ sub cartesians {
         return vector($self->{len_val}, 0, 0);
     }
 
-    unless ($self->{dih_ref}) { # third atom; place on XY plane
+    if (!$self->{dih_ref}  # third atom; place on XY plane 
+        or abs($self->{ang_val} % 180) < 0.005) { # linear angle
         my $len = $self->{len_val};
         my $ang = deg2rad(180 - $self->{ang_val});
         my $d1 = $self->{len_ref}->coords - $self->{ang_ref}->coords;
@@ -187,6 +192,16 @@ sub cartesians {
 
     # $xp = normal to atoms 1 2 3 
     my $xp = $d1 x $d2;
+
+    if ($xp->length == 0) { # ill-defined dihedral
+        my $len = $self->{len_val};
+        my $ang = deg2rad(180 - $self->{ang_val});
+        my $d1 = $self->{len_ref}->coords - $self->{ang_ref}->coords;
+        $d1 = $d1->norm;
+        my $v = $len * $d1 * cos($ang) + $len * Y * sin($ang);
+        return( $v + $self->{len_ref}->coords);
+    }
+
     # $yp = normal to xp and atoms 2 3
     my $yp = $d2 x $xp;
 
@@ -251,7 +266,7 @@ sub stringify {
 
 =head1 VERSION
 
-0.16
+0.17
 
 =head1 SEE ALSO
 
