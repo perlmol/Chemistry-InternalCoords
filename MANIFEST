@@ -7,10 +7,10 @@ README
 bug.ic
 bug.out
 pod.t
+t/builder.out
+t/builder.pl
 t/builder.t
 t/ic.t
 t/pod.t
-t/c13.out
-t/c13.pl
 test.ic
 test.out

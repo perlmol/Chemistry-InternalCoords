@@ -1,11 +1,11 @@
-Chemistry/InternalCoords version 0.15
+Chemistry/InternalCoords version 0.16
 =====================================
 
 This modules convert from internal to Cartesian coordinates and viceversa.
 
-CHANGES SINCE VERSION 0.11
-    - New methods: distance, angle, dihedral
-    - New module: Chemistry::InternalCoords::Builder
+CHANGES SINCE VERSION 0.15
+    - Changed t/builder.t so that it doesn't fail falsely due to 
+      non-deterministic behavior.
 
 INSTALLATION
 

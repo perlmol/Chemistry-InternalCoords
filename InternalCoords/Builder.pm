@@ -1,6 +1,6 @@
 package Chemistry::InternalCoords::Builder;
 
-$VERSION = '0.15';
+$VERSION = '0.16';
 
 use strict;
 use warnings;
@@ -174,7 +174,7 @@ sub sorted_neighbors {
 
 =head1 VERSION
 
-0.15
+0.16
 
 =head1 CAVEATS
 

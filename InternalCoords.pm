@@ -1,6 +1,6 @@
 package Chemistry::InternalCoords;
 
-$VERSION = '0.15';
+$VERSION = '0.16';
 # $Id$
 
 use 5.006;
@@ -251,7 +251,7 @@ sub stringify {
 
 =head1 VERSION
 
-0.15
+0.16
 
 =head1 SEE ALSO
 

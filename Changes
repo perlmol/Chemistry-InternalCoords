@@ -1,5 +1,9 @@
 Revision history for Perl extension Chemistry::InternalCoords
 
+0.16  Jul 3 2004
+    - Changed t/builder.t so that it doesn't fail falsely due to 
+      non-deterministic behavior.
+
 0.15  Jul 2 2004
     - New methods: distance, angle, dihedral
     - New module: Chemistry::InternalCoords::Builder
