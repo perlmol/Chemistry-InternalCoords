@@ -122,7 +122,8 @@ Chemistry::InternalCoords object.
 =cut
 
 sub distance {
-    my ($self) = @_;
+    my $self = shift;
+    $self->{len_val} = shift if @_;
     ($self->{len_ref}, $self->{len_val});
 }
 
@@ -134,7 +135,8 @@ Chemistry::InternalCoords object.
 =cut
 
 sub angle {
-    my ($self) = @_;
+    my $self = shift;
+    $self->{ang_val} = shift if @_;
     ($self->{ang_ref}, $self->{ang_val});
 }
 
@@ -146,7 +148,8 @@ Chemistry::InternalCoords object.
 =cut
 
 sub dihedral {
-    my ($self) = @_;
+    my $self = shift;
+    $self->{dih_val} = shift if @_;
     ($self->{dih_ref}, $self->{dih_val});
 }
 
@@ -243,6 +246,23 @@ sub add_cartesians {
     my $v = $self->cartesians;
     $self->{atom}->coords($v);
     $v;
+}
+
+=item $ic->update
+
+Update the values of the internal coordinates from the cartesian coordinates
+for the atom.
+
+=cut
+
+sub update {
+    my ($self) = @_;
+    $self->{len_val} = $self->{atom}->distance($self->{len_ref});
+    $self->{ang_val} = $self->{atom}->angle_deg(
+        $self->{len_ref},$self->{ang_ref});
+    $self->{dih_val} = $self->{atom}->dihedral_deg(
+        $self->{len_ref},$self->{ang_ref},$self->{dih_ref});
+    $self;
 }
 
 =item my $string = $ic->stringify

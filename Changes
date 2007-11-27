@@ -1,5 +1,9 @@
 Revision history for Perl extension Chemistry::InternalCoords
 
+0.19  Nov 2007
+    - Use distance, angle, and dihedral methods as setters.
+    - Added update method.
+
 0.18  Sep 24 2004
     - Added the bfs and sort options to build_zmat.
 

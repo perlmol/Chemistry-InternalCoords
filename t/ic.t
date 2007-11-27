@@ -1,6 +1,8 @@
-use Test::More 'no_plan';
+use Test::More tests => 137;
+#use Test::More 'no_plan';
 
 use Chemistry::Mol;
+use Math::VectorReal;
 use strict;
 use warnings;
 
@@ -12,6 +14,7 @@ BEGIN {
     use_ok('Chemistry::InternalCoords');
 }
 
+# Test for conversion of internal to cartesian
 for my $in_file (@files) {
     my $out_file = $in_file;
     $out_file =~ s/ic$/out/;
@@ -36,3 +39,42 @@ for my $in_file (@files) {
         }
     }
 }
+
+# check new update and setters
+
+# set up simple molecule with the following geometry (atom 1 at origin)
+#
+#                      4-3
+#                        |
+#                      1-2
+
+my $mol = Chemistry::Mol->new;
+$mol->new_atom for 1 .. 4;
+$mol->atoms(1)->internal_coords(0,0,0,0,0,0);
+$mol->atoms(2)->internal_coords(1,1,0,0,0,0);
+$mol->atoms(3)->internal_coords(2,1,1,90,0,0);
+$mol->atoms(4)->internal_coords(3,1,2,90,1,0);
+$_->internal_coords->add_cartesians for $mol->atoms;
+
+my $atom = $mol->atoms(4);
+ok($atom->distance(vector(0,1,0))*1 < $TOL, 'check coord before');
+my ($ref, $val) = $atom->internal_coords->dihedral;
+is($ref, $mol->atoms(1), 'get ref before');
+is($val, 0, 'get val before');
+
+# change dihedral to 180
+$atom->internal_coords->dihedral(180);
+($ref, $val) = $atom->internal_coords->dihedral;
+is($val, 180, 'get val after');
+$atom->internal_coords->add_cartesians;
+ok($atom->distance(vector(2,1,0))*1 < $TOL, 'check coord after dihedral change')
+    or print $atom->coords;
+
+# now move atom 4 back in cartesian space and update
+$atom->coords(0,1,0);
+ok($atom->distance(vector(0,1,0))*1 < $TOL, 'check coord after atom move');
+$atom->internal_coords->update;
+($ref, $val) = $atom->internal_coords->dihedral;
+ok(abs($val - 0) < $TOL, 'check dihedral after atom move and update');
+
+

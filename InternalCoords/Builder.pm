@@ -165,7 +165,11 @@ sub add_ic {
 # Choose a good length reference for $atom
 sub find_length {
     my ($atom, $atoms) = @_;
+
+    # find the first bonded neighbor already in the zmat
     my $ref = first { $_->attr("zmat/index") } $atom->neighbors;
+
+    # if that fails, find the closest atom already in the zmat
     unless ($ref) {
         $ref = ${ 
             reduce { $a->[0] < $b->[0] ? $a : $b } 
@@ -179,7 +183,12 @@ sub find_length {
 # Choose a good angle (and length) reference for $atom
 sub find_angle {
     my ($atom, $atoms) = @_;
+    # find a neighbor for the length reference
     my ($len_ref, $len_val) = find_length(@_);
+
+    # find the first reasonable atom already in the zmat among our neighbor's
+    # neighbors, or else in the rest of the zmat (reasonable=different from
+    # us and from our neighbor)
     my $ang_ref = 
         first { 
             $_->attr("zmat/index") && $_ ne $len_ref && $_ ne $atom
