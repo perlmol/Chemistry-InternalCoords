@@ -1,6 +1,6 @@
 package Chemistry::InternalCoords::Builder;
 
-$VERSION = '0.18';
+$VERSION = '0.20';
 
 use strict;
 use warnings;
@@ -186,28 +186,39 @@ sub find_angle {
     # find a neighbor for the length reference
     my ($len_ref, $len_val) = find_length(@_);
 
-    # find the first reasonable atom already in the zmat among our neighbor's
-    # neighbors, or else in the rest of the zmat (reasonable=different from
-    # us and from our neighbor)
-    my $ang_ref = 
-        first { 
+    # find the first two reasonable atoms already in the zmat among our
+    # neighbor's neighbors, or else in the rest of the zmat
+    # (reasonable=different from us and from our neighbor)
+    # Pick the second one if the first angle is nearly linear
+
+    my ($ang_ref1, $ang_ref2) = 
+        grep { 
             $_->attr("zmat/index") && $_ ne $len_ref && $_ ne $atom
         } $len_ref->neighbors($atom), @$atoms;
-    my $ang_val = $atom->angle_deg($len_ref, $ang_ref);
-    ($len_ref, $len_val, $ang_ref, $ang_val);
+    my $ang_val = $atom->angle_deg($len_ref, $ang_ref1);
+    if (($ang_val > 170 or $ang_val < 10) and $ang_ref2) {
+        $ang_ref1 = $ang_ref2;
+        $ang_val = $atom->angle_deg($len_ref, $ang_ref1);
+    }
+    ($len_ref, $len_val, $ang_ref1, $ang_val);
 }
 
 # Choose a good dihedral (and angle and length) reference for $atom
 sub find_dihedral {
     my ($atom, $atoms) = @_;
     my ($len_ref, $len_val, $ang_ref, $ang_val) = find_angle(@_);
-    my $dih_ref = 
-        first { 
+    my ($dih_ref1, $dih_ref2) = 
+        grep { 
             $_->attr("zmat/index") && $_ ne $len_ref 
                 && $_ ne $ang_ref && $_ ne $atom
         } $len_ref->neighbors($atom), $ang_ref->neighbors($len_ref), @$atoms;
-    my $dih_val = $atom->dihedral_deg($len_ref, $ang_ref, $dih_ref);
-    ($len_ref, $len_val, $ang_ref, $ang_val, $dih_ref, $dih_val);
+    my $dih_val = $atom->dihedral_deg($len_ref, $ang_ref, $dih_ref1);
+    my $ang_val_d = $len_ref->angle_deg($ang_ref, $dih_ref1);
+    if (($ang_val_d > 170 or $ang_val_d < 10) and $dih_ref2) {
+        $dih_ref1 = $dih_ref2;
+        $dih_val = $atom->dihedral_deg($len_ref, $ang_ref, $dih_ref1);
+    }
+    ($len_ref, $len_val, $ang_ref, $ang_val, $dih_ref1, $dih_val);
 }
 
 sub sorted_neighbors {
@@ -225,7 +236,7 @@ sub sorted_neighbors {
 
 =head1 VERSION
 
-0.18
+0.20
 
 =head1 CAVEATS
 

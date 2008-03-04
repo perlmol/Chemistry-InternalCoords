@@ -1,8 +1,13 @@
 Revision history for Perl extension Chemistry::InternalCoords
 
+0.20 
+    - Avoid generating linear angles and ill-defined dihedrals if possible.
+      This hack will probably scale badly for large molecules...
+
 0.19  Nov 2007
     - Use distance, angle, and dihedral methods as setters.
     - Added update method.
+    - Turned Chemistry::InternalCoords into a subclass of Chemistry::Obj.
 
 0.18  Sep 24 2004
     - Added the bfs and sort options to build_zmat.

@@ -1,4 +1,4 @@
-Chemistry/InternalCoords version 0.18
+Chemistry/InternalCoords version 0.20
 =====================================
 
 This modules convert from internal to Cartesian coordinates and viceversa.

@@ -1,11 +1,12 @@
 package Chemistry::InternalCoords;
 
-$VERSION = '0.18';
+$VERSION = '0.20';
 # $Id$
 
 use 5.006;
 use strict;
 use warnings;
+use base qw(Chemistry::Obj);
 use Math::VectorReal qw(:all);
 use Carp;
 use overload '""' => "stringify", fallback => 1;
@@ -257,11 +258,12 @@ for the atom.
 
 sub update {
     my ($self) = @_;
-    $self->{len_val} = $self->{atom}->distance($self->{len_ref});
-    $self->{ang_val} = $self->{atom}->angle_deg(
-        $self->{len_ref},$self->{ang_ref});
+    my ($len_ref, $ang_ref, $dih_ref) = 
+        ($self->{len_ref}, $self->{ang_ref}, $self->{dih_ref});
+    $self->{len_val} = $self->{atom}->distance($len_ref) if $len_ref;
+    $self->{ang_val} = $self->{atom}->angle_deg($len_ref,$ang_ref) if $ang_ref;
     $self->{dih_val} = $self->{atom}->dihedral_deg(
-        $self->{len_ref},$self->{ang_ref},$self->{dih_ref});
+        $len_ref,$ang_ref,$dih_ref) if $dih_ref;
     $self;
 }
 
@@ -286,7 +288,7 @@ sub stringify {
 
 =head1 VERSION
 
-0.18
+0.20
 
 =head1 SEE ALSO
 
